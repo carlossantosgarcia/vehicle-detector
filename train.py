@@ -47,7 +47,7 @@ def train_classifier(model:str, X_train:np.ndarray, X_test:np.ndarray, y_train:n
     print(f"Classifier trained in {time.time() - start_time:.1f}")
 
     # Saving classifier
-    filename = f"{kwargs['date']}_{kwargs['model_name']}.pkl"
+    filename = f"{kwargs['date']}_{model}.pkl"
     if not os.path.exists("models"):
         os.makedirs("models")
     with open(os.path.join("models", filename),"wb") as f:
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Launches training."
     )
-    parser.add_argument("--model_name", type=str, help="Name of the trained model")
+    parser.add_argument("--model", type=str, help="Name of the trained model")
     parser.add_argument('--bow', dest='bow', action='store_true')
     parser.add_argument('--no-bow', dest='bow', action='store_false')
     parser.set_defaults(bow=False)
@@ -78,7 +78,6 @@ if __name__ == "__main__":
     date = date_to_string()
     
     kwargs = {
-        'model_name':args.model_name,
         'date': date,   
     }
 
@@ -99,5 +98,5 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = dataset.create_dataset()
 
     # Launches training
-    clf = train_classifier(X_train, X_test, y_train, y_test, **kwargs)
+    clf = train_classifier(args.model, X_train, X_test, y_train, y_test, **kwargs)
     
