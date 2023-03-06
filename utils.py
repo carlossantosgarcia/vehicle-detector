@@ -1,9 +1,7 @@
 from datetime import datetime
 
-import matplotlib.patches as patches
 import numpy as np
 import pandas as pd
-from matplotlib import pyplot as plt
 from skimage.io import imread
 
 
@@ -22,20 +20,6 @@ def annotations_for_frame(df_annotation, frame):
 
     bbs = list(map(lambda x: int(x), bbs.split(" ")))
     return np.array_split(bbs, len(bbs) / 4)
-
-
-def show_annotation(df_annotation, frame):
-    img = read_frame(df_annotation, frame)
-    bbs = annotations_for_frame(df_annotation, frame)
-
-    fig, ax = plt.subplots(figsize=(10, 8))
-
-    for x, y, dx, dy in bbs:
-        rect = patches.Rectangle((x, y), dx, dy, edgecolor="r", facecolor="none")
-        ax.add_patch(rect)
-
-    ax.imshow(img)
-    ax.set_title("Annotations for frame {}.".format(frame))
 
 
 def bounding_boxes_to_mask(bounding_boxes, H, W):
