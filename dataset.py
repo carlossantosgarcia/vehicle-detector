@@ -90,7 +90,7 @@ class CarDetectorDataset:
         self.bag_of_words = bag_of_words
         if self.bag_of_words:
             self.sift = SIFT_create()
-            with open("vocab.pkl", "rb") as f:
+            with open("models/vocab.pkl", "rb") as f:
                 self.vocab = pickle.load(f)
         self.hist = hist
         self.spatial = spatial
