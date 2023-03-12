@@ -105,7 +105,7 @@ class CarDetectorDataset:
         Adds patches containing vehicles to the dataset.
         """
         for idx in tqdm(range(self.N)):
-            img = imread(self.df_data.frame_id[idx])
+            img = imread(os.path.join('data', self.df_data.frame_id[idx]))
             for x, y, dx, dy in annotations_for_frame(self.df_data, idx):
                 if dx > self.min_w and dy > self.min_h:
                     # Patch is added if bigger than minimum size
@@ -120,7 +120,7 @@ class CarDetectorDataset:
         imgs_per_sample = len(self.patches) // self.N
         r = len(self.patches) / self.N - imgs_per_sample
         for idx in tqdm(range(self.N)):
-            img = imread(self.df_data.frame_id[idx])
+            img = imread(os.path.join('data', self.df_data.frame_id[idx]))
             H, W, _ = img.shape
             bboxes_list = annotations_for_frame(self.df_data, idx)
             bboxes_mask = bounding_boxes_to_mask(bboxes_list, H, W)
