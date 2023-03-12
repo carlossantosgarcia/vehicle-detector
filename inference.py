@@ -179,7 +179,7 @@ def run_inference(
             fd = compute_features(
                 patch=patch,
                 hog_extractor=hog_extractor,
-                sif_extractor=sift_extractor,
+                sift_extractor=sift_extractor,
                 vocab=vocab,
                 bow=True,
                 hist=True,
